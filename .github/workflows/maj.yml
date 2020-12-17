@@ -1,7 +1,7 @@
-name: Bonjour
+name: majSite
 on: [push]
 jobs:
-  dire_bonjour:
+  site_maj:
     runs-on: ubuntu-20.04
     steps:
     - run: sudo apt-get update && sudo apt-get install -y asciidoctor
