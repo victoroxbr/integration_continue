@@ -1,27 +1,26 @@
 name: majSite
 on: [push, pull_request]
-jobs:
-  check_file:
-    runs-on: ubuntu-20.04
-    steps:
-      - if: ${{ github.event_name == 'pull_request' }}
-      - run: sudo apt-get update && sudo apt-get install -y linkchecker
-      - run: actions/checkout@v2
-      - run: make main.html && linkchecker --check-extern ./main.html
-
+jobs:   
   site_maj:
     runs-on: ubuntu-20.04
     steps:
-    - if: ${{ github.event_name == 'push' }}
-    - run: sudo apt-get update && sudo apt-get install -y asciidoctor
-    - uses: actions/checkout@v2
-    - run: make
+      - name: Step 1
+        if: ${{ github.event_name == 'pull_request' }}
+        run: sudo apt-get update && sudo apt-get install -y linkchecker
+        run: actions/checkout@v2
+        run: make main.html && linkchecker --check-extern ./main.html
+        
+      - name: Step 2
+        if: ${{ github.event_name == 'push' }}
+        run: sudo apt-get update && sudo apt-get install -y asciidoctor
+        uses: actions/checkout@v2
+        run: make
 
-    - name: Deploy to Netlify
-      uses: nwtgck/actions-netlify@v1.1
-      with:
-        publish-dir: './dist'
-        production-branch: main
-      env:
-        NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
-        NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+      - name: Deploy to Netlify
+        uses: nwtgck/actions-netlify@v1.1
+        with:
+          publish-dir: './dist'
+          production-branch: main
+        env:
+          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
