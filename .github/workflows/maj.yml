@@ -1,9 +1,6 @@
-name: majSite
+name: CD
 on:   
   push:
-    branches:
-      - main
-  pull_request:
     branches:
       - main
 
@@ -11,18 +8,11 @@ jobs:
   site_maj:
     runs-on: ubuntu-20.04
     steps:
-      - name: Step 1
-        if: ${{ github.event_name == 'pull_request' }}
-        uses: action/checkout@v2
-        run: sudo apt-get update && sudo apt-get install -y linkchecker &&  make main.html && linkchecker --check-extern ./main.html
-        
-      - name: Step 2
-        if: ${{ github.event_name == 'push' }}
-        uses: actions/checkout@v2
-        run: sudo apt-get update && sudo apt-get install -y asciidoctor && make
+      - run: sudo apt-get update && sudo apt-get install -y asciidoctor
+      - uses: actions/checkout@v2
+      - run: make
 
       - name: Deploy to Netlify
-        if: ${{ github.event_name == 'push' }}
         uses: nwtgck/actions-netlify@v1.1
         with:
           publish-dir: './dist'

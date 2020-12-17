@@ -1,0 +1,13 @@
+name: CI
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  test:
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: action/checkout@v2
+      - run: sudo apt-get update && sudo apt-get install -y linkchecker
+      - run: make main.html && linkchecker --check-extern ./main.html
