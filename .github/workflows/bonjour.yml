@@ -4,6 +4,7 @@ jobs:
   dire_bonjour:
     runs-on: ubuntu-20.04
     steps:
-    - run: sudo apt-get update -y && sudo apt-get install -y cowsay
     - uses: actions/checkout@v2
-    - run: cat README.md | cowsay -f dragon-and-cow
+    - run: make
+    - run: netlify deploy --dir=./dist/
+    - run: netlify deploy --prod --dir=./dist/
