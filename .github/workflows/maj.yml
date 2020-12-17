@@ -1,22 +1,28 @@
 name: majSite
-on: [push, pull_request]
-jobs:   
+on:   
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
   site_maj:
     runs-on: ubuntu-20.04
     steps:
       - name: Step 1
         if: ${{ github.event_name == 'pull_request' }}
-        run: sudo apt-get update && sudo apt-get install -y linkchecker
-        - uses: actions/checkout@v2
-        run: make main.html && linkchecker --check-extern ./main.html
+        uses: action/checkout@v2
+        run: sudo apt-get update && sudo apt-get install -y linkchecker &&  make main.html && linkchecker --check-extern ./main.html
         
       - name: Step 2
         if: ${{ github.event_name == 'push' }}
-        run: sudo apt-get update && sudo apt-get install -y asciidoctor
-        - uses: actions/checkout@v2
-        run: make
+        uses: actions/checkout@v2
+        run: sudo apt-get update && sudo apt-get install -y asciidoctor && make
 
       - name: Deploy to Netlify
+        if: ${{ github.event_name == 'push' }}
         uses: nwtgck/actions-netlify@v1.1
         with:
           publish-dir: './dist'
