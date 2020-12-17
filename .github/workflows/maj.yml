@@ -8,10 +8,11 @@ jobs:
     - uses: actions/checkout@v2
     - run: make
 
-    - name: Publish
-      uses: netlify/actions/cli@master
+    - name: Deploy to Netlify
+      uses: nwtgck/actions-netlify@v1.1
       with:
-        args: deploy --prod --dir=./dist/
+        publish-dir: './dist'
+        production-branch: main
       env:
         NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
         NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
