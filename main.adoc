@@ -1,0 +1,10 @@
+= Bonjour à toi voyageur de l'espace !
+Menu Cantina Tatooine
+== Plat
+* Morve de Jabba le Hutt
+* Cervelle de Wookies
+
+[source,bash]
+Profitez de l'ambiance !
+
+image::https://upload.wikimedia.org/wikipedia/en/thumb/a/a7/Figrin_D%27an_and_the_Modal_Nodes_in_Star_Wars_Episode_IV.jpg/220px-Figrin_D%27an_and_the_Modal_Nodes_in_Star_Wars_Episode_IV.jpg[220px-Figrin_D%27an_and_the_Modal_Nodes_in_Star_Wars_Episode_IV, 350, 250]
