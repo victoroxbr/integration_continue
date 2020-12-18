@@ -13,9 +13,10 @@ jobs:
       - run: make
 
       - name: Downloading result in artifact
-        uses: actions/download-artifact@v2
+        uses: actions/upload-artifact@v2
         with:
           name: Test artifact CD
+          path: dist/index.html
 
       - name: Deploy to Netlify
         uses: nwtgck/actions-netlify@v1.1
