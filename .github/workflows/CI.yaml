@@ -1,6 +1,6 @@
 name: CI
 on:
-  push:
+  pull_request:
     branches:
       - main
 
@@ -10,11 +10,11 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - run: sudo apt-get update && sudo apt-get install -y asciidoctor && sudo apt-get install -y linkchecker
-      - run: make main.html && linkchecker --check-extern ./main.html >> test.txt
+      - run: make main.html && linkchecker --check-extern ./main.html >> rapport_linkchecker.txt
       - name: Uploading result in artifact
         uses: actions/upload-artifact@v2
         with:
           name: Test result
-          path: test.txt
+          path: rapport_linkchecker.txt
         
           
