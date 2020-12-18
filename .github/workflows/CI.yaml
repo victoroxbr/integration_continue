@@ -9,7 +9,6 @@ jobs:
     runs-on: ubuntu-20.04
     steps:
       - uses: actions/checkout@v2
-      - run: sudo apt update && sudo apt install -y linkchecker
       - run: make main.html && linkchecker --check-extern ./main.html >> test.txt
       - name: Uploading result in artifact
         uses: actions/upload-artifact@v2
