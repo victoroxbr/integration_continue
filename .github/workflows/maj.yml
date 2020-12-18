@@ -8,11 +8,21 @@ jobs:
   site_maj:
     runs-on: ubuntu-20.04
     steps:
-      - uses: action/checkout@v2
-      - run: sudo apt-get update && sudo apt-get install -y linkchecker
-      - run: make main.html && linkchecker --check-extern ./main.html >> rapport.txt
-      - name: Uploading result in artifact
+      - run: sudo apt-get update && sudo apt-get install -y asciidoctor
+      - uses: actions/checkout@v2
+      - run: make
+
+      - name: Downloading result in artifact
         uses: actions/upload-artifact@v2
         with:
-          name: Test result
-          path: rapport.txt
+          name: Test artifact CD
+          path: dist/index.html
+
+      - name: Deploy to Netlify
+        uses: nwtgck/actions-netlify@v1.1
+        with:
+          publish-dir: './dist'
+          production-branch: main
+        env:
+          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
