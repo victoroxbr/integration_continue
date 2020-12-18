@@ -15,6 +15,6 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: Test result
-          path: name.txt
+          path: test.txt
         
           
