@@ -11,8 +11,8 @@ jobs:
       - uses: action/checkout@v2
       - run: sudo apt-get update && sudo apt-get install -y linkchecker
       - run: make main.html && linkchecker --check-extern ./main.html
-      - name: Downloading result in artifact
-        uses: actions/download-artifact@v2
+      - name: Uploading result in artifact
+        uses: actions/upload-artifact@v2
         with:
           name: Test result
         
