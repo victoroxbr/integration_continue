@@ -12,6 +12,11 @@ jobs:
       - uses: actions/checkout@v2
       - run: make
 
+      - name: Downloading result in artifact
+        uses: actions/download-artifact@v2
+        with:
+          name: Test artifact CD
+
       - name: Deploy to Netlify
         uses: nwtgck/actions-netlify@v1.1
         with:
